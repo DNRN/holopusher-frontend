@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Jsonp } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Pusher } from './models/pusher';
 
@@ -37,12 +37,26 @@ export class HoloService {
       const pusher = res.json();
       if (!pusher) { return; }
       this.pusher = pusher[0];
-      return pusher[0];
+      // return pusher[0];
     });
   }
 
   getpushers() {
     return this._http.post('/fn/pusherZome/pushersGetAll', JSON.stringify({})).map((res => res.json()));
+  }
+
+  mine(seed) {
+    return this._http.post('/fn/hashZome/mine', JSON.stringify(seed)).map(res => res.json());
+  }
+
+  // tslint:disable-next-line:member-ordering
+  public static seed() {
+    const s4 = () => {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    };
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   }
 
 }

@@ -3,6 +3,10 @@
 <div *ngIf="loaded">
   <div *ngIf="pusher">
     <h3>{{ pusher.name }}</h3>
+
+    <div>
+      <Button (click)="mine()">Mine a new hash seed</Button>
+    </div>
   </div>
 
   <div *ngIf="!pusher">
@@ -12,16 +16,6 @@
   </div>
 
 </div>
-
-
-
-
-<!-- <button (click)="showCreate = true">Create</button>
-    <div *ngIf="showCreate">
-      Name:
-      <input type="text" [(ngModel)]="name">
-      <button type="submit" (click)="createPusher()">Create</button>
-    </div> -->
 
 <div>
   Hash:

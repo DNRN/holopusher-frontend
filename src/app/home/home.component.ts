@@ -24,11 +24,12 @@ export class HomeComponent implements OnInit {
   constructor(private _holoService: HoloService) { }
 
   ngOnInit() {
-    this._holoService.getPusherByAgent().subscribe(pusher => {
+    this._holoService.pusher$.subscribe(pusher => {
       this.pusher = pusher;
       this.loaded = true;
       console.log(this.pusher);
-    });
+    })
+    this._holoService.getPusherByAgent().subscribe();
     this._holoService.getpushers().subscribe(pushers => {
       console.log(pushers);
       this.pushers = pushers;
@@ -62,6 +63,15 @@ export class HomeComponent implements OnInit {
     this._holoService.getPusher(this.hash).subscribe(res => {
       this.foundPusher = res;
       console.log(this.foundPusher);
+    });
+  }
+
+  mine() {
+    const seed = HoloService.seed();
+    console.log('mine');
+    console.log(seed);
+    this._holoService.mine(seed).subscribe(hash => {
+      console.log(hash);
     });
   }
 
