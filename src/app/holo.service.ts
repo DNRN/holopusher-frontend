@@ -32,4 +32,17 @@ export class HoloService {
     return this._http.post('/fn/pusherZome/pusherGetEntry', JSON.stringify(hash)).map(res => res.json());
   }
 
+  getPusherByAgent() {
+    return this._http.post('/fn/pusherZome/pusherGetFromAgent', JSON.stringify({})).map(res => {
+      const pusher = res.json();
+      if (!pusher) { return; }
+      this.pusher = pusher[0];
+      return pusher[0];
+    });
+  }
+
+  getpushers() {
+    return this._http.post('/fn/pusherZome/pushersGetAll', JSON.stringify({})).map((res => res.json()));
+  }
+
 }

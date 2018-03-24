@@ -1,15 +1,24 @@
 <h1>Welcome to Holo Pusher</h1>
-Name: <input type="text" [(ngModel)]="name">
-<button type="submit" (click)="createPusher()">Create</button>
 
-<div *ngIf="pusher">
-  <h3>New pusher created</h3>
-  Hash: <p>{{ pusher.hash }}</p>
-  Name: <p>{{ pusher.name }}</p>
+<div *ngIf="loaded">
+  <div *ngIf="pusher; else createPusher">
+    <h3>{{ pusher.name }}</h3>
+  </div>
+
+  <ng-template #createPusher>
+    <button (click)="showCreate = true">Create</button>
+    <div *ngIf="showCreate">
+      Name:
+      <input type="text" [(ngModel)]="name">
+      <button type="submit" (click)="createPusher()">Create</button>
+    </div>
+  </ng-template>
 </div>
 
 <div>
-  Hash: <input type="text" [(ngModel)]="hash"><button type="submit" (click)="find()">Find</button>
+  Hash:
+  <input type="text" [(ngModel)]="hash">
+  <button type="submit" (click)="find()">Find</button>
 
   <div *ngIf="foundPusher">
     <h2>Pusher</h2>
