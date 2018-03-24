@@ -11,6 +11,8 @@ export class HomeComponent implements OnInit {
 
   loaded = false;
 
+  stash = [];
+
   personalHash: string;
   hash: string;
 
@@ -28,16 +30,19 @@ export class HomeComponent implements OnInit {
       this.pusher = pusher;
       this.loaded = true;
       console.log(this.pusher);
-    })
+    });
     this._holoService.getPusherByAgent().subscribe();
     this._holoService.getpushers().subscribe(pushers => {
       console.log(pushers);
       this.pushers = pushers;
     });
+    this._holoService.getHash().subscribe(hash => {
+      this.stash = hash;
+      console.log(this.stash);
+    });
   }
 
   createPusher() {
-    console.log('ssss');
     this.pusher = {
       name: this.name,
       timestamp: 1234
@@ -71,7 +76,9 @@ export class HomeComponent implements OnInit {
     console.log('mine');
     console.log(seed);
     this._holoService.mine(seed).subscribe(hash => {
-      console.log(hash);
+      this._holoService.getHash().subscribe(h => {
+        this.stash = h;
+      });
     });
   }
 

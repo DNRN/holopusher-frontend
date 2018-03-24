@@ -7,6 +7,13 @@
     <div>
       <Button (click)="mine()">Mine a new hash seed</Button>
     </div>
+
+    <div *ngIf="stash.length > 0">
+      <b>Stash</b>
+      <div *ngFor="let hash of stash">
+        {{ hash.Hash }}
+      </div>
+    </div>
   </div>
 
   <div *ngIf="!pusher">
