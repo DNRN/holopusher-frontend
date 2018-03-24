@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
   }
 
   createPusher() {
+    console.log('ssss');
     this.pusher = {
       name: this.name,
       timestamp: 1234
