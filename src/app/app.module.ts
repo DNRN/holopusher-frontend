@@ -8,12 +8,14 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { HttpModule } from '@angular/http';
 import { HoloService } from './holo.service';
+import { MarketComponent } from './market/market.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    MarketComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -25,6 +27,6 @@ import { HoloService } from './holo.service';
     FormsModule
   ],
   providers: [HoloService],
-  bootstrap: [HomeComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

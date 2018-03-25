@@ -1,5 +1,3 @@
-<h1>Welcome to Holo Pusher</h1>
-
 <div *ngIf="loaded">
   <div *ngIf="pusher">
     <h3>{{ pusher.name }}</h3>
@@ -11,16 +9,18 @@
     <div *ngIf="stash.length > 0">
       <b>Stash</b>
       <div *ngFor="let hash of stash">
-        {{ hash.Hash }}
+        {{ hash.Hash }} ({{ hash.Entry.seed }}) : {{ testTT(hash.Hash) }} 
+        <button (click)="sellHash = hash">Sell</button>
+        <div *ngIf="sellHash == hash">
+            Price: <input type="number" [(ngModel)]="price"/>
+            <button (click)="sell(hash, price); sellHash = null">Add to market</button>
+            <button (click)="sellHash = null">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <div *ngIf="!pusher">
-    Name:
-    <input type="text" [(ngModel)]="name">
-    <button type="submit" (click)="createPusher()">Create</button>
-  </div>
+  
 
 </div>
 

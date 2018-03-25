@@ -53,6 +53,18 @@ export class HoloService {
     return this._http.post('/fn/hashZome/getAll', JSON.stringify({})).map(res => res.json());
   }
 
+  getStash() {
+    return this._http.post('/fn/hashZome/getStash', JSON.stringify({})).map(res => res.json());
+  }
+
+  sellHash(sellOrder) {
+    return this._http.post('/fn/sellingZome/sell', sellOrder).map(res => res.json());
+  }
+
+  getMarket() {
+    return this._http.post('/fn/sellingZome/getMarket', JSON.stringify({})).map(res => res.json());
+  }
+
   // tslint:disable-next-line:member-ordering
   public static seed() {
     const s4 = () => {

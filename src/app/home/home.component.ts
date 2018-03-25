@@ -29,28 +29,20 @@ export class HomeComponent implements OnInit {
     this._holoService.pusher$.subscribe(pusher => {
       this.pusher = pusher;
       this.loaded = true;
-      console.log(this.pusher);
     });
     this._holoService.getPusherByAgent().subscribe();
     this._holoService.getpushers().subscribe(pushers => {
       console.log(pushers);
       this.pushers = pushers;
     });
-    this._holoService.getHash().subscribe(hash => {
+    this._holoService.getStash().subscribe(hash => {
       this.stash = hash;
       console.log(this.stash);
     });
   }
 
-  createPusher() {
-    this.pusher = {
-      name: this.name,
-      timestamp: 1234
-    };
-    this.name = '';
-    this._holoService.createPusher(this.pusher).subscribe(res => {
-      this.pusher.hash = res;
-    }, err => console.log(err));
+  testTT(ss) {
+    return `${Math.log(ss.charCodeAt(16) + ss.charCodeAt(22)) }% THC`;
   }
 
   load() {
@@ -76,9 +68,18 @@ export class HomeComponent implements OnInit {
     console.log('mine');
     console.log(seed);
     this._holoService.mine(seed).subscribe(hash => {
-      this._holoService.getHash().subscribe(h => {
+      this._holoService.getStash().subscribe(h => {
         this.stash = h;
       });
+    });
+  }
+
+  sell(hash, price) {
+    this._holoService.sellHash({
+      hash: hash.Hash,
+      price: price
+    }).subscribe(marketEntry => {
+      this._holoService.getStash().subscribe(s => this.stash = s );
     });
   }
 
